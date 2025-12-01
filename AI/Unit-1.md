@@ -1,6 +1,6 @@
 ---
 
-# **INTRODUCTION TO ARTIFICIAL INTELLIGENCE – TOP-SCORING NOTES**
+# **1)INTRODUCTION TO ARTIFICIAL INTELLIGENCE – TOP-SCORING NOTES**
 
 ---
 
@@ -200,4 +200,219 @@ Disciplines contributing to AI:
 ### **13. Education** – Automated grading, virtual tutors
 
 ---
+# **2)AGENTS AND ENVIRONMENTS – EXAM-READY NOTES**
+
+---
+
+## **Agents in Artificial Intelligence**
+
+An **agent** is anything that **perceives** its environment through **sensors** and **acts** upon that environment using **actuators**.
+
+**Agent cycle:**
+**Perceive → Think → Act**
+
+### **Types of Agents (Examples)**
+
+* **Human Agent:**
+  Sensors – eyes, ears
+  Actuators – hands, legs, speech
+* **Robotic Agent:**
+  Sensors – camera, infrared, NLP
+  Actuators – motors
+* **Software Agent:**
+  Sensors – keystrokes, file input
+  Actuators – display, logs
+
+---
+
+## **Sensors, Actuators, Effectors**
+
+* **Sensors**: Detect changes in environment (camera, mic, temperature sensor).
+* **Actuators**: Convert energy into motion (motors, wheels, gears).
+* **Effectors**: Parts that effect the environment (legs, arms, fingers, screen).
+
+---
+
+## **Agent Environment**
+
+* Environment = everything surrounding the agent but not part of it.
+* It provides conditions for sensing and acting.
+* Most environments are **non-deterministic** and dynamic.
+
+---
+
+## **Intelligent Agents**
+
+An **intelligent agent** is an autonomous system that uses sensors & actuators to achieve goals and can learn from the environment.
+
+### **Rules for an AI agent**
+
+1. Must perceive the environment
+2. Use observations to make decisions
+3. Decisions must result in actions
+4. Actions must be **rational**
+
+---
+
+## **Characteristics of Intelligent Agent**
+
+* **Autonomy**
+* **Reactivity**
+* **Pro-activeness** (goal-driven)
+* **Social ability** (interact with other agents)
+* **Adaptability/Learning ability**
+
+---
+
+## **Types of Agent Programs**
+
+1. **Simple Reflex Agents**
+2. **Model-Based Reflex Agents**
+3. **Goal-Based Agents**
+4. **Utility-Based Agents**
+5. **Learning Agents**
+
+---
+
+## **1. Simple Reflex Agents**
+
+* Act only based on **current percept**
+* Ignore percept history
+* Works only in **fully observable** environments
+* Based on **Condition–Action rules**
+
+**Problems:**
+
+* Limited intelligence
+* No memory
+* Not adaptable
+
+---
+
+## **2. Model-Based Reflex Agents**
+
+* Work in **partially observable** environments
+* Maintain **internal state**
+* Use **model of the world**
+* Update state using:
+
+  * How world evolves
+  * How actions affect world
+
+---
+
+## **3. Goal-Based Agents**
+
+* Use goals to decide actions
+* Compare future states → choose action leading to goal
+* Use **searching and planning**
+* More flexible than simple/model-based agents
+
+---
+
+## **4. Utility-Based Agents**
+
+* Handle multiple options
+* Use **utility function**: maps state → numeric value
+* Choose action giving **highest utility**
+* Useful when multiple goals or trade-offs exist
+
+---
+
+## **5. Learning Agents**
+
+Components:
+
+* **Learning Element** (learn from experience)
+* **Critic** (gives feedback)
+* **Performance Element** (selects actions)
+* **Problem Generator** (suggests exploratory actions)
+
+---
+
+## **Rational Agent**
+
+A rational agent chooses actions that **maximize performance measure**.
+
+Rationality depends on:
+
+* Performance measure
+* Prior knowledge
+* Possible actions
+* Percept sequence
+
+---
+
+## **Nature of Environments (8 Key Properties)**
+
+### **1. Fully Observable vs Partially Observable**
+
+Fully: agent senses entire environment
+Partially: only partial knowledge
+
+### **2. Deterministic vs Stochastic**
+
+Deterministic: next state predictable
+Stochastic: randomness involved
+
+### **3. Episodic vs Sequential**
+
+Episodic: actions independent (image classification)
+Sequential: past actions matter (driving)
+
+### **4. Static vs Dynamic**
+
+Static: environment does not change during decision
+Dynamic: it changes (taxi driving)
+
+### **5. Discrete vs Continuous**
+
+Discrete: finite actions/percepts (chess)
+Continuous: infinite states (robot navigation)
+
+### **6. Single Agent vs Multi-Agent**
+
+Single: one agent alone
+Multi: multiple agents (games, traffic)
+
+### **7. Known vs Unknown**
+
+Known: agent knows rules
+Unknown: must learn rules
+
+### **8. Accessible vs Inaccessible**
+
+Accessible: full sensor access
+Inaccessible: hidden information
+
+---
+
+## **Structure of an Intelligent Agent**
+
+Agent = **Architecture + Agent Program**
+
+* **Architecture:** Physical platform (robot, computer)
+* **Agent Program:** Maps percept → action
+  **f : P* → A**
+
+---
+
+## **PEAS Representation**
+
+A framework to define an agent:
+
+* **P** – Performance Measure
+* **E** – Environment
+* **A** – Actuators
+* **S** – Sensors
+
+### **Example: Self-driving Car**
+
+* P: Safety, time, comfort, legality
+* E: Roads, vehicles, pedestrians
+* A: Steering, brake, accelerator
+* S: Cameras, GPS, lidar, speedometer
+
+---
+
 
