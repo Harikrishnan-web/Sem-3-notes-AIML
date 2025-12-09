@@ -504,6 +504,321 @@ Steps:
 | Scalable                | Replication conflict |
 
 ---
+## 🔥 SECTION 3 — **NoSQL Databases (FULL + DETAILED)**
+
+---
+
+# **3.1 INTRODUCTION TO NOSQL**
+
+**NoSQL** stands for **“Not Only SQL"**, referencing a class of database systems that **do not follow the traditional relational model** and **do not use fixed schema tables**.
+They are designed for:
+
+* **Big Data**
+* **Distributed data storage**
+* **High availability**
+* **Horizontal scaling**
+* **Unstructured / Semi-structured data**
+
+➡ **KEY CONCEPT:**
+Relational DB scales **vertically** (bigger machine)
+NoSQL DB scales **horizontally** (more machines)
+
+Examples: **MongoDB, Cassandra, Redis, Neo4j, DynamoDB**
+
+---
+
+# **3.2 Why NoSQL? (Need)**
+
+Traditional SQL fails when:
+
+* Data is **unstructured (JSON, video, logs, IoT streams)**
+* DB size becomes petabytes
+* Cloud-scale users (Millions of users simultaneously)
+
+| SQL DB          | NoSQL DB    |
+| --------------- | ----------- |
+| Fixed schema    | Schema-less |
+| Join operations | No joins    |
+| Vertical scale  | Horizontal  |
+| ACID            | BASE        |
+| Single server   | Clusters    |
+
+➡ Designed for **Web, Mobile, ML Analytics, IoT**
+
+---
+
+# **3.3 CHARACTERISTICS OF NOSQL DATABASES**
+
+| Feature          | Description             |
+| ---------------- | ----------------------- |
+| Schema-less      | JSON or key-value pairs |
+| Horizontal scale | Add servers easily      |
+| Replication      | Built-in                |
+| No join overhead | Faster                  |
+| BASE principle   | Eventual consistency    |
+| Polyglot         | Use multiple DB types   |
+
+---
+
+# **3.4 ACID vs BASE (IMPORTANT)**
+
+| Property     | ACID (RDBMS) | BASE (NoSQL) |
+| ------------ | ------------ | ------------ |
+| Consistency  | Immediate    | Eventual     |
+| Availability | Medium       | High         |
+| Scalability  | Vertical     | Horizontal   |
+| Transactions | Relational   | Distributed  |
+| Guarantee    | Strong       | Approximate  |
+| Model        | Traditional  | Big Data     |
+
+➡ **BASE** = **Basically Available, Soft State, Eventually Consistent**
+
+---
+
+# **3.5 TYPES OF NOSQL DATABASES**
+
+---
+
+## **3.5.1 KEY-VALUE DATABASES**
+
+| Feature   | Value                  |
+| --------- | ---------------------- |
+| Structure | key → value            |
+| Speed     | Very fast              |
+| Use Case  | Cache, sessions        |
+| Example   | Redis, Amazon DynamoDB |
+
+➡ Works like **hashmap on steroids**.
+
+---
+
+## **3.5.2 DOCUMENT DATABASES**
+
+| Item        | Description      |
+| ----------- | ---------------- |
+| Data Format | JSON / BSON      |
+| Query       | Document search  |
+| Feature     | Embedded docs    |
+| Example     | MongoDB, CouchDB |
+
+➡ Best for **Web apps, API databases**
+
+---
+
+## **3.5.3 COLUMN-FAMILY DATABASES**
+
+| Item      | Description             |
+| --------- | ----------------------- |
+| Structure | Column groups           |
+| Query     | Column-wise read        |
+| Strength  | Analytics               |
+| Example   | Apache Cassandra, HBase |
+
+➡ Used by **Netflix, Spotify, Facebook**
+
+---
+
+## **3.5.4 GRAPH DATABASES** *(More deep in SECTION 5)*
+
+| Feature   | Description     |
+| --------- | --------------- |
+| Structure | Nodes + Edges   |
+| Use       | Social networks |
+| Example   | Neo4j           |
+
+➡ Relationship-first database.
+
+---
+
+# **3.6 INTERNAL STORAGE MODEL OF NOSQL**
+
+| Model     | How stores     |
+| --------- | -------------- |
+| Key–Value | Hash table     |
+| Document  | JSON store     |
+| Column    | SSTables       |
+| Graph     | Adjacency list |
+
+➡ NoSQL uses **shared-nothing architecture** → massively scalable.
+
+---
+
+# **3.7 Advantages & Disadvantages**
+
+| Advantages           | Disadvantages          |
+| -------------------- | ---------------------- |
+| Scales horizontally  | No standard interface  |
+| High availability    | Weak consistency       |
+| Handles unstructured | Complex to query       |
+| Fast processing      | Limited ad hoc queries |
+
+➡ Trade-off based on **CAP**, covered next.
+
+---
+
+# **3.8 USE CASES OF NoSQL**
+
+| Domain       | Use                 |
+| ------------ | ------------------- |
+| Social media | Graph relations     |
+| Banking      | Fraud analytics     |
+| Gaming       | Live leaderboards   |
+| IoT          | Sensor data         |
+| E-commerce   | Recommendations     |
+| ML           | Model training data |
+
+---
+## 🔥 SECTION 4 — CAP THEOREM (FULL + DETAILED + REAL-WORLD EXAMPLES)
+
+---
+
+# **4.1 Introduction to CAP Theorem**
+
+The **CAP Theorem** (Brewer’s Theorem) states:
+
+📌 **A distributed database can guarantee ONLY TWO out of the following THREE properties at the same time**:
+
+| C | Consistency |
+| A | Availability |
+| P | Partition Tolerance |
+
+➡ When a network failure occurs (partition), system **must sacrifice either Consistency or Availability**.
+
+---
+
+# **4.2 CAP Theorem Components (Detailed)**
+
+---
+
+### **4.2.1 Consistency**
+
+➡ Every read receives the **most recent write**.
+
+Example:
+If `A → Balance is updated`, every user sees the new balance.
+
+| SQL RDBMS | Supports strong consistency |
+| NoSQL AP DB | Eventual |
+
+---
+
+### **4.2.2 Availability**
+
+➡ Every request receives a response — **even if old or stale**.
+
+If one node fails → another returns older copy but provides answer.
+
+Example: **Shopping site shows yesterday’s available stock rather than no result**
+
+---
+
+### **4.2.3 Partition Tolerance**
+
+➡ System continues functioning even if nodes **cannot communicate** due to network failure (partition).
+
+Example:
+
+* Node in USA cannot reach node in India because network cable breakdown
+* System must operate independently
+
+➡ Partition tolerance is **mandatory in global distributed systems**.
+
+---
+
+# **4.3 CAP Triangle (Explain like diagram)**
+
+```
+          Consistency (C)
+              /\
+             /  \
+            /    \
+           /      \
+Availability ------ Partition Tolerance
+                     (A)                  (P)
+```
+
+➡ A system **cannot sit in the center**; choices are required.
+
+---
+
+# **4.4 CAP Trade-Off Combinations**
+
+| Combination | Meaning                                   |
+| ----------- | ----------------------------------------- |
+| **CA**      | Consistency + Availability (no partition) |
+| **CP**      | Consistency + Partition Tolerance         |
+| **AP**      | Availability + Partition Tolerance        |
+
+---
+
+## **4.4.1 CA System (Consistency + Availability)**
+
+* Works only if there are **no partitions**
+* **Centralized databases**
+* Rare in real world
+
+Example:
+**Single server SQL database**
+
+➡ When network fails → SYSTEM FAILS, not acceptable.
+
+---
+
+## **4.4.2 CP System (Consistency + Partition Tolerance)**
+
+➡ System sacrifices availability but keeps accuracy.
+
+Example:
+
+* **MongoDB (when configured as CP)**
+* **Google BigTable**
+* **HBase**
+* **Redis (cluster mode)**
+
+Use case: **Banking, Stock Control**
+
+➡ Better to **delay response** than return wrong data.
+
+---
+
+## **4.4.3 AP System (Availability + Partition Tolerance)**
+
+➡ Always responds but data may be temporary inconsistent.
+
+Examples:
+
+* **Cassandra**
+* **DynamoDB**
+* **Riak**
+
+Real use: **Social media likes count, cached timeline**
+➡ Seeing 100 likes instead of 102 is acceptable.
+
+---
+
+# **4.5 CAP in Real-World System Designs**
+
+| System         | CAP Choice | Why                    |
+| -------------- | ---------- | ---------------------- |
+| Banking        | CP         | Must be correct        |
+| YouTube Views  | AP         | Count can update later |
+| Amazon Cart    | AP         | Always visible         |
+| ATMs           | CP         | Consistent balance     |
+| Messaging Apps | AP         | Temporary offline OK   |
+
+---
+
+# **4.6 Relation Between CAP & BASE**
+
+| Term                 | Part of CAP             | Related NoSQL concept |
+| -------------------- | ----------------------- | --------------------- |
+| Eventual consistency | Sacrifice Consistency   | BASE                  |
+| High availability    | Guarantee response      | AP                    |
+| Partition tolerance  | Required in distributed | NoSQL                 |
+
+➡ BASE model chosen because **eventual consistency acceptable** in most modern web applications.
+
+---
 
 
 
