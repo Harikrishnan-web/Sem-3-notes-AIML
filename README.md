@@ -1,0 +1,1 @@
+These are the notes that I prepared during my 3 rd semester since my core subjects are starting from this, I prioritise these
