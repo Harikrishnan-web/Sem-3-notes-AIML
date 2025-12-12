@@ -730,4 +730,99 @@ Sum: 13
 The result updates each time new values are entered and Add is pressed.
 
 ---
+# **Swing Calculator (Add, Sub, Mul, Div)**
+
+## **Code**
+
+```java
+import javax.swing.*;
+
+public class SwingFullCalculator {
+    SwingFullCalculator() {
+        JFrame f = new JFrame("Calculator");
+        JTextField t1 = new JTextField();
+        JTextField t2 = new JTextField();
+        JLabel res = new JLabel("");
+        JButton add = new JButton("Add");
+        JButton sub = new JButton("Sub");
+        JButton mul = new JButton("Mul");
+        JButton div = new JButton("Div");
+
+        t1.setBounds(50, 40, 100, 30);
+        t2.setBounds(160, 40, 100, 30);
+        add.setBounds(20, 90, 80, 30);
+        sub.setBounds(110, 90, 80, 30);
+        mul.setBounds(200, 90, 80, 30);
+        div.setBounds(110, 130, 80, 30);
+        res.setBounds(50, 180, 250, 30);
+
+        add.addActionListener(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) + Integer.parseInt(t2.getText()))));
+        sub.addActionListener(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) - Integer.parseInt(t2.getText()))));
+        mul.addActionListener(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) * Integer.parseInt(t2.getText()))));
+        div.addActionListener(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) / Integer.parseInt(t2.getText()))));
+
+        f.add(t1); f.add(t2);
+        f.add(add); f.add(sub); f.add(mul); f.add(div);
+        f.add(res);
+
+        f.setSize(320, 270);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        new SwingFullCalculator();
+    }
+}
+```
+
+## **Output**
+
+A window with two number fields and four buttons (Add, Sub, Mul, Div).
+Clicking each button displays the corresponding result in the label.
+
+---
+
+# **JavaFX Calculator (Add, Sub, Mul, Div)**
+
+## **Code**
+
+```java
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class FXFullCalculator extends Application {
+    public void start(Stage s) {
+        TextField t1 = new TextField();
+        TextField t2 = new TextField();
+        Button add = new Button("Add");
+        Button sub = new Button("Sub");
+        Button mul = new Button("Mul");
+        Button div = new Button("Div");
+        Label res = new Label();
+
+        add.setOnAction(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) + Integer.parseInt(t2.getText()))));
+        sub.setOnAction(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) - Integer.parseInt(t2.getText()))));
+        mul.setOnAction(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) * Integer.parseInt(t2.getText()))));
+        div.setOnAction(e -> res.setText("Result: " + (Integer.parseInt(t1.getText()) / Integer.parseInt(t2.getText()))));
+
+        VBox v = new VBox(10, t1, t2, add, sub, mul, div, res);
+        s.setScene(new Scene(v, 250, 300));
+        s.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+## **Output**
+
+A JavaFX window with two input fields and four buttons.
+Clicking each button shows the calculated result in the label.
 
