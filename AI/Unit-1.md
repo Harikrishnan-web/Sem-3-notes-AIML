@@ -176,3 +176,226 @@ AI is used in many fields:
 * E-commerce (recommendations)
 
 ---
+
+## **2. Agents and Environments**
+
+Artificial Intelligence is defined as the study of **rational agents operating in an environment**.
+
+An agent senses the environment, decides what to do, and performs actions to achieve its goal.
+
+---
+
+## **2.1 Agents in Artificial Intelligence**
+
+### **Definition of an Agent (PDF-Exact Meaning)**
+
+An **agent** is anything that:
+
+* **Perceives** its environment through **sensors**
+* **Acts** upon the environment through **actuators**
+
+👉 If something can sense and act, it is an agent.
+<img src="Sources/2.png" alt="A screenshot" width="400" height="200">
+
+
+---
+
+### **Agent–Environment Interaction**
+
+An agent always works inside an environment.
+
+**Step-by-step interaction:**
+
+1. Environment produces information
+2. Agent senses information using sensors
+3. Agent processes information
+4. Agent selects an action
+5. Agent performs action using actuators
+6. Environment changes
+7. Cycle repeats continuously
+
+This continuous loop makes an agent intelligent.
+
+---
+
+### **Sensors (PDF-Based)**
+
+A **sensor** detects changes in the environment and sends information to the agent.
+
+**Examples:**
+
+* Camera
+* Microphone
+* Infrared sensor
+* Keyboard
+
+Without sensors, the agent cannot observe the environment.
+
+---
+
+### **Actuators (PDF-Based)**
+
+An **actuator** converts energy into motion or action.
+
+**Examples:**
+
+* Motors
+* Wheels
+* Gears
+* Speakers
+
+Actuators allow the agent to perform actions.
+
+---
+
+### **Effectors (PDF Term)**
+
+Effectors are the parts of the agent that **directly affect the environment**.
+
+**Examples:**
+
+* Arms
+* Legs
+* Wheels
+* Display screen
+
+---
+
+## **2.3 Types of AI Agents (VERY IMPORTANT)**
+
+The PDF classifies agents into **five types** based on intelligence and capability.
+
+---
+
+### **1. Simple Reflex Agent**
+
+A **Simple Reflex Agent**:
+
+* Takes action based only on the **current percept**
+* Ignores past percept history
+* Uses **condition–action rules**
+
+**Working idea (child-simple):**
+IF condition is true → DO action
+
+**Example from PDF:**
+
+* Room cleaner agent
+
+  * IF dirt detected → Clean
+
+**Key Characteristics:**
+
+* No memory
+* No learning
+* Works only in **fully observable environments**
+
+**Limitations (PDF points):**
+
+* Very limited intelligence
+* Cannot handle changes in environment
+* Fails in partially observable environments
+
+---
+
+### **2. Model-Based Reflex Agent**
+
+A **Model-Based Reflex Agent** improves over the simple reflex agent.
+
+**Why needed?**
+Sometimes the agent cannot see the full environment.
+
+**Main Components (PDF Keywords):**
+
+1. **Model** – Knowledge of how the world works
+2. **Internal State** – Stores information from past percepts
+
+**How it works:**
+
+* Uses percept history
+* Updates internal state
+* Decides action using model
+
+**Capabilities:**
+
+* Works in **partially observable environments**
+* Tracks the current situation
+
+---
+
+### **3. Goal-Based Agent**
+
+A **Goal-Based Agent** knows:
+
+* Current state
+* Desired goal state
+
+**PDF Concept:**
+Current state alone is not enough → goal information is required.
+
+**How it works:**
+
+* Considers different possible actions
+* Chooses actions that lead to the goal
+* Uses **searching and planning**
+
+**Important Keyword:**
+
+* Proactive agent
+
+**Example:**
+
+* Path-finding robot
+* Game-playing agent
+
+---
+
+### **4. Utility-Based Agent**
+
+A **Utility-Based Agent** selects the **best action**, not just any action that reaches the goal.
+
+**PDF Concept:**
+When multiple actions achieve the goal, the agent chooses the one with **maximum utility**.
+
+**Utility Function:**
+
+* Maps a state to a real number
+* Higher value = better outcome
+
+**Advantages:**
+
+* Handles trade-offs
+* Chooses most efficient solution
+
+---
+
+### **5. Learning Agent**
+
+A **Learning Agent** improves its performance over time using experience.
+
+**PDF Components (VERY IMPORTANT):**
+
+1. **Performance Element** – Selects actions
+2. **Learning Element** – Improves performance
+3. **Critic** – Provides feedback
+4. **Problem Generator** – Suggests new experiences
+
+**Key Feature:**
+
+* Learns automatically
+* Adapts to environment
+
+---
+
+## **Agent Environment in AI (PDF-Based)**
+
+An **environment** is everything surrounding the agent but not part of the agent itself.
+
+The environment:
+
+* Provides percepts
+* Responds to agent actions
+* Can be unpredictable (non-deterministic)
+
+---
+
