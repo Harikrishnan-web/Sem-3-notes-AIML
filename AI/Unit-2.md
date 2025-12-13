@@ -708,7 +708,7 @@ Max fitness = 28
 
 ---
 Just watch there videos for these topics
-[Local Search in Continuous Spaces](https://www.youtube.com/watch?v=g0lF_p_Zlmw&t=952s)
-[Search with Nondeterministic Actions](https://www.youtube.com/watch?v=VUuPlQFSwwo)
-[Search in Partially Observable Environments](https://www.youtube.com/watch?v=Nw95_WLDTco)
-[Hill Climbing](https://www.youtube.com/watch?v=_ThdIOA9Lbk)
+- [Local Search in Continuous Spaces](https://www.youtube.com/watch?v=g0lF_p_Zlmw&t=952s)
+- [Search with Nondeterministic Actions](https://www.youtube.com/watch?v=VUuPlQFSwwo)
+- [Search in Partially Observable Environments](https://www.youtube.com/watch?v=Nw95_WLDTco)
+- [Hill Climbing](https://www.youtube.com/watch?v=_ThdIOA9Lbk)
