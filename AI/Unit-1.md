@@ -268,6 +268,7 @@ The PDF classifies agents into **five types** based on intelligence and capabili
 ---
 
 ### **1. Simple Reflex Agent**
+<img src="Sources/3.png" alt="A screenshot" width="400" height="200">
 
 A **Simple Reflex Agent**:
 
@@ -299,7 +300,7 @@ IF condition is true → DO action
 ---
 
 ### **2. Model-Based Reflex Agent**
-
+<img src="Sources/4.png" alt="A screenshot" width="400" height="200">
 A **Model-Based Reflex Agent** improves over the simple reflex agent.
 
 **Why needed?**
@@ -324,7 +325,7 @@ Sometimes the agent cannot see the full environment.
 ---
 
 ### **3. Goal-Based Agent**
-
+<img src="Sources/5.png" alt="A screenshot" width="400" height="200">
 A **Goal-Based Agent** knows:
 
 * Current state
@@ -351,7 +352,7 @@ Current state alone is not enough → goal information is required.
 ---
 
 ### **4. Utility-Based Agent**
-
+<img src="Sources/6.png" alt="A screenshot" width="400" height="200">
 A **Utility-Based Agent** selects the **best action**, not just any action that reaches the goal.
 
 **PDF Concept:**
@@ -370,7 +371,7 @@ When multiple actions achieve the goal, the agent chooses the one with **maximum
 ---
 
 ### **5. Learning Agent**
-
+<img src="Sources/7.png" alt="A screenshot" width="400" height="200">
 A **Learning Agent** improves its performance over time using experience.
 
 **PDF Components (VERY IMPORTANT):**
