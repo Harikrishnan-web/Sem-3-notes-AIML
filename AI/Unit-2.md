@@ -681,7 +681,7 @@ Max fitness = 28
 ---
 
 #### **6. Elitism**
-<img src="Sources/.png" alt="A screenshot" width="400" height="200">
+<img src="Sources/Eti.png" alt="A screenshot" width="400" height="200">
 * Best parents carried to next generation
 * Ensures fitness never decreases
 
