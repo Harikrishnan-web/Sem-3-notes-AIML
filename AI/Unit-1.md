@@ -650,7 +650,7 @@ It uses only:
 ---
 
 ## **3. Breadth-First Search (BFS)**
-
+<img src="Sources/9.png" alt="A screenshot" width="400" height="200">
 ### **Idea**
 
 Breadth-First Search explores the **shallowest nodes first**.
@@ -700,7 +700,7 @@ Where:
 ---
 
 ## **4. Depth-First Search (DFS)**
-
+<img src="Sources/10.png" alt="A screenshot" width="400" height="200">
 ### **Idea**
 
 Depth-First Search explores the **deepest node first**.
@@ -747,7 +747,7 @@ Where m = maximum depth
 ---
 
 ## **5. Depth-Limited Search (DLS)**
-
+<img src="Sources/11.png" alt="A screenshot" width="400" height="200">
 ### **Idea**
 
 Depth-Limited Search is DFS with a **depth limit**.
@@ -777,7 +777,7 @@ Depth-Limited Search is DFS with a **depth limit**.
 ---
 
 ## **6. Iterative Deepening Depth-First Search (IDDFS)**
-
+<img src="Sources/13.png" alt="A screenshot" width="400" height="200">
 ### **Idea**
 
 IDDFS combines BFS and DFS.
@@ -811,7 +811,7 @@ It performs DLS repeatedly with increasing depth limits.
 ---
 
 ## **7. Uniform Cost Search (UCS)**
-
+<img src="Sources/12.png" alt="A screenshot" width="400" height="200">
 ### **Idea**
 
 Uniform Cost Search expands the node with the **lowest path cost**.
@@ -843,7 +843,7 @@ Uniform Cost Search expands the node with the **lowest path cost**.
 ---
 
 ## **8. Bidirectional Search**
-
+<img src="Sources/14.png" alt="A screenshot" width="400" height="200">
 ### **Idea**
 
 Bidirectional search searches:
@@ -876,5 +876,260 @@ Search stops when two searches meet.
 | Bidirectional | Yes      | Yes     | O(b^(d/2)) | O(b^(d/2)) |
 
 ---
+
+# **UNIT–I : ARTIFICIAL INTELLIGENCE — SHORT REVISION NOTES**
+
+---
+
+## **1. Introduction to Artificial Intelligence (AI)**
+
+* Artificial Intelligence is a branch of computer science that creates **intelligent machines**.
+* AI systems can **think, learn, reason, solve problems, and make decisions**.
+* AI tries to **simulate human intelligence** in machines.
+
+**Key abilities of AI:**
+
+* Learning from experience
+* Reasoning logically
+* Problem solving
+* Decision making
+* Perception and action
+
+---
+
+## **2. Agents and Environments**
+
+### **Agent**
+
+* An **agent** is anything that:
+
+  * **Perceives** its environment through **sensors**
+  * **Acts** upon the environment through **actuators**
+
+**Agent cycle:**
+
+> Perceive → Decide → Act → Environment changes → Repeat
+
+### **Environment**
+
+* Everything outside the agent that the agent interacts with.
+* Environment provides **percepts** and receives **actions**.
+
+---
+
+## **3. Rational Agent**
+
+### **Rational Agent**
+
+* A **rational agent** chooses actions that **maximize expected performance**.
+
+**Rational action depends on:**
+
+1. Performance measure
+2. Percept sequence
+3. Prior knowledge
+4. Available actions
+
+⚠️ Rational ≠ perfect
+Agent does best with what it knows.
+
+---
+
+### **Performance Measure**
+
+* Evaluates success of agent behavior.
+* Example (vacuum agent): cleanliness, time, energy usage.
+
+---
+
+### **PEAS Representation**
+
+**PEAS = Performance measure, Environment, Actuators, Sensors**
+
+**Vacuum Cleaner Agent:**
+
+* **P:** Cleanliness, time
+* **E:** Rooms, dirt
+* **A:** Move left, move right, suck
+* **S:** Dirt sensor, location sensor
+
+**Self-Driving Taxi:**
+
+* **P:** Safety, speed, comfort
+* **E:** Roads, traffic
+* **A:** Steering, brakes, accelerator
+* **S:** Cameras, GPS, radar
+
+---
+
+## **4. Nature of Environments**
+
+Environment classification from agent’s point of view:
+
+1. **Fully Observable / Partially Observable**
+
+   * Complete / incomplete information
+
+2. **Deterministic / Stochastic**
+
+   * Fixed result / uncertain result
+
+3. **Episodic / Sequential**
+
+   * Independent actions / dependent actions
+
+4. **Static / Dynamic**
+
+   * No change / changes while thinking
+
+5. **Discrete / Continuous**
+
+   * Finite states / infinite states
+
+6. **Single-Agent / Multi-Agent**
+
+   * One agent / many agents
+
+7. **Known / Unknown**
+
+   * Rules known / rules must be learned
+
+---
+
+## **5. Structure of Agents**
+
+### **Agent Structure**
+
+> **Agent = Architecture + Agent Program**
+
+* **Architecture:** Hardware or software platform
+* **Agent Program:** Implements agent behavior
+
+### **Agent Function**
+
+* Maps percept sequence to action:
+
+> **f : P* → A**
+
+---
+
+## **6. Problem-Solving Agents**
+
+* A **problem-solving agent** is a **goal-based agent**.
+* It finds a **sequence of actions** to reach a goal.
+* Uses **search algorithms**.
+
+### **Problem Formulation**
+
+1. Initial state
+2. Actions
+3. Transition model
+4. Goal test
+5. Path cost
+
+### **Steps in Problem Solving**
+
+1. Formulate goal
+2. Formulate problem
+3. Search for solution
+4. Execute solution
+
+### **Examples**
+
+* 8-Puzzle
+* Water Jug
+* Tower of Hanoi
+* Travelling Salesman
+
+---
+
+## **7. Search Algorithms**
+
+* Search finds a path from **initial state to goal state**.
+* Used by problem-solving agents.
+
+---
+
+## **8. Uninformed (Blind) Search Strategies**
+
+Uninformed search uses **no extra knowledge** about the goal.
+
+---
+
+### **1. Breadth-First Search (BFS)**
+
+* Expands **shallowest node first**
+* Uses **Queue (FIFO)**
+
+**Properties:**
+
+* Complete: Yes
+* Optimal: Yes (equal cost)
+* Time: O(bᵈ)
+* Space: O(bᵈ)
+
+---
+
+### **2. Depth-First Search (DFS)**
+
+* Expands **deepest node first**
+* Uses **Stack (LIFO)**
+
+**Properties:**
+
+* Complete: No
+* Optimal: No
+* Time: O(bᵐ)
+* Space: O(bm)
+
+---
+
+### **3. Depth-Limited Search (DLS)**
+
+* DFS with depth limit **L**
+
+**Properties:**
+
+* Complete: Yes (if L ≥ d)
+* Optimal: No
+
+---
+
+### **4. Iterative Deepening DFS (IDDFS)**
+
+* Repeated DLS with increasing depth
+
+**Properties:**
+
+* Complete: Yes
+* Optimal: Yes
+* Time: O(bᵈ)
+* Space: O(bd)
+
+---
+
+### **5. Uniform Cost Search (UCS)**
+
+* Expands node with **lowest path cost**
+* Uses **Priority Queue**
+
+**Properties:**
+
+* Complete: Yes
+* Optimal: Yes
+
+---
+
+### **6. Bidirectional Search**
+
+* Searches from **start and goal simultaneously**
+
+**Properties:**
+
+* Time: O(bᵈᐟ²)
+* Space: O(bᵈᐟ²)
+
+---
+
 
 
