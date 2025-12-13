@@ -1,57 +1,61 @@
-**UNIT II – PROBLEM SOLVING**
-**Topic 1: Informed Search Algorithms**
+# Unit-2 Problem Solving
 
 ---
 
-## 1. Informed Search Algorithms
-
-### 1.1 Introduction
-
-Informed search algorithms improve upon uninformed (blind) search methods by using **additional knowledge** about the problem domain.
-This knowledge helps the agent decide **which node to expand next**, thereby reducing the size of the search space explored.
-
-**Key idea:**
-Instead of searching blindly, the algorithm uses an estimate of how close a state is to the goal.
-
-**Also called:** Heuristic Search
-
-**Why needed:**
-
-* Uninformed search explores all possible paths
-* Inefficient for large search spaces
-* Informed search is faster and more practical
+# **1. Informed Search Algorithms**
 
 ---
 
-## 1.2 Heuristic Search
+## **1.1 Introduction to Informed Search Algorithms**
 
-### Definition
+Informed search algorithms are an improvement over uninformed search algorithms.
 
-A **heuristic** is a rule or function that guides the search toward the goal by estimating how close a state is to the goal.
+* Uninformed search algorithms search the entire search space without any additional knowledge.
+* Informed search algorithms use **extra knowledge** such as:
 
-### Heuristic Function
+  * Distance from the goal
+  * Path cost
+  * Information on how to reach the goal node
+* This knowledge helps the agent:
 
-* Represented as **h(n)**
-* Input: current state `n`
-* Output: estimated cost to reach the goal from `n`
-* Always **non-negative**
-
-**Meaning:**
-“How far am I from the goal?”
-
-### Properties
-
-* Heuristic may not give the best solution always
-* Guarantees a *good* solution in reasonable time
-* Crucial for large and complex problems
+  * Explore fewer nodes
+  * Reach the goal more efficiently
+* These algorithms are very useful for **large search spaces**
+* Since they use heuristics, they are also called **heuristic search algorithms**
 
 ---
 
-## 1.3 Admissible Heuristic
+## **1.2 Heuristic Search**
 
-A heuristic is **admissible** if it never overestimates the true cost.
+### **Heuristic Function**
 
-### Condition
+* A heuristic is a function used in informed search
+* It finds the **most promising path**
+* It takes the **current state** as input
+* It produces an **estimate of how close the agent is to the goal**
+* Represented as:
+
+```
+h(n)
+```
+
+Where:
+
+* `n` is the current node
+* `h(n)` estimates the cost of the optimal path from `n` to the goal
+* The value of `h(n)` is always **positive**
+
+### **Properties**
+
+* Heuristic methods may not always give the best solution
+* They guarantee a **good solution in reasonable time**
+* Heuristic function estimates closeness to the goal
+
+---
+
+## **1.3 Admissibility of Heuristic Function**
+
+A heuristic is admissible if:
 
 ```
 h(n) ≤ h*(n)
@@ -59,107 +63,107 @@ h(n) ≤ h*(n)
 
 Where:
 
-* `h(n)` = heuristic estimated cost
-* `h*(n)` = actual optimal cost to reach the goal
+* `h(n)` = heuristic cost
+* `h*(n)` = estimated (actual optimal) cost
 
-**Importance:**
+This means:
 
-* Required for optimality in A* search
-* Ensures solution quality
-
----
-
-## 1.4 Pure Heuristic Search
-
-### Concept
-
-* Simplest heuristic-based search
-* Uses **only heuristic value h(n)** to expand nodes
-
-### Data Structures
-
-* **OPEN list** → nodes yet to be expanded
-* **CLOSED list** → nodes already expanded
-
-### Working
-
-1. Choose node with **lowest h(n)**
-2. Expand it
-3. Move it to CLOSED list
-4. Add successors to OPEN list
-5. Repeat until goal is found
-
-### Limitation
-
-* Ignores path cost
-* Not guaranteed optimal
+* Heuristic cost should be **less than or equal to** the actual cost
 
 ---
 
-## 1.5 Types of Informed Search Algorithms
+## **1.4 Pure Heuristic Search**
 
-Two major informed search algorithms:
+Pure heuristic search is the **simplest form** of heuristic search.
 
-1. **Greedy Best-First Search**
-2. **A* Search**
+### **Characteristics**
+
+* Nodes are expanded based only on `h(n)`
+* Uses two lists:
+
+  * **OPEN list** → nodes not yet expanded
+  * **CLOSED list** → nodes already expanded
+
+### **Working**
+
+* Select node with lowest heuristic value
+* Expand it
+* Move it to CLOSED list
+* Add successors to OPEN list
+* Continue until goal state is found
 
 ---
 
-## 1.6 Greedy Best-First Search (Best-First Search)
+## **1.5 Types of Informed Search Algorithms**
 
-### Idea
+Two main informed search algorithms are discussed:
 
-Always expand the node that **appears closest to the goal**.
+1. **Best First Search (Greedy Search)**
+2. **A* Search Algorithm**
 
-### Evaluation Function
+---
+
+## **1.6 Best-First Search Algorithm (Greedy Search)**
+<img src="Sources/BFS 1.png" alt="A screenshot" width="400" height="200">
+### **Definition**
+
+* Always selects the path that appears best at the moment
+* Combines features of **DFS** and **BFS**
+* Uses heuristic function to guide search
+
+### **Evaluation Function**
 
 ```
 f(n) = h(n)
 ```
 
-Only heuristic value is considered.
+Where:
 
-### Nature
+* `h(n)` = estimated cost from node `n` to the goal
 
-* Combines ideas of DFS and BFS
+### **Implementation**
+
 * Implemented using a **priority queue**
 
 ---
 
-### Algorithm (Child-Friendly Explanation)
+### **Algorithm (Steps)**
 
-1. Put the start node in OPEN
-2. If OPEN is empty → failure
-3. Pick the node with smallest `h(n)`
-4. Move it to CLOSED
-5. Generate its children
-6. If any child is the goal → success
-7. Otherwise, add unexplored children to OPEN
-8. Repeat
+1. Place the starting node in the OPEN list
+2. If OPEN list is empty, stop and return failure
+3. Remove node `n` from OPEN with lowest `h(n)` and place it in CLOSED
+4. Expand node `n` and generate successors
+5. If any successor is goal, return success
+6. Otherwise:
+
+   * Evaluate successors
+   * Add unvisited nodes to OPEN list
+7. Repeat from Step 2
+
+<img src="Sources/BFS 2.png" alt="A screenshot" width="400" height="200">
+---
+
+### **Advantages**
+
+* Combines benefits of BFS and DFS
+* More efficient than BFS and DFS
 
 ---
 
-### Advantages
-
-* Faster than BFS and DFS
-* Uses guidance from heuristic
-* Efficient in many cases
-
----
-
-### Disadvantages
+### **Disadvantages**
 
 * Can behave like DFS in worst case
 * Can get stuck in loops
-* **Not optimal**
-* **Not complete**
+* Not optimal
 
 ---
 
-### Example (Greedy Best-First)
+### **Example (Greedy Best-First Search)**
 
-* Nodes expanded based only on `h(n)`
-* Final path found:
+* Nodes expanded using `f(n) = h(n)`
+* Uses OPEN and CLOSED lists
+
+Final solution path:
 
 ```
 S → B → F → G
@@ -167,7 +171,7 @@ S → B → F → G
 
 ---
 
-### Complexity
+### **Complexity**
 
 * **Time Complexity:** `O(b^m)`
 * **Space Complexity:** `O(b^m)`
@@ -176,23 +180,30 @@ S → B → F → G
 
 ---
 
-### Properties
+### **Properties**
 
-* **Complete:** ❌ No
-* **Optimal:** ❌ No
+* **Complete:** No
+* **Optimal:** No
 
 ---
 
-## 1.7 A* Search Algorithm
+## **1.7 A* Search Algorithm**
 
-### Idea
+### **Definition**
 
-A* combines:
+* Most commonly known form of best-first search
+* Uses:
 
-* Actual cost from start
-* Estimated cost to goal
+  * Heuristic function `h(n)`
+  * Cost to reach node `g(n)`
+* Combines features of:
 
-### Evaluation Function
+  * Uniform Cost Search
+  * Greedy Best-First Search
+
+---
+
+### **Evaluation Function**
 
 ```
 f(n) = g(n) + h(n)
@@ -201,37 +212,38 @@ f(n) = g(n) + h(n)
 Where:
 
 * `g(n)` = cost from start to node `n`
-* `h(n)` = heuristic estimate to goal
+* `h(n)` = estimated cost to goal
 
 ---
 
-### Characteristics
+### **Characteristics**
 
-* Combines **Uniform Cost Search** and **Greedy Search**
 * Expands fewer nodes
-* Produces optimal solution (with admissible heuristic)
+* Finds shortest path
+* Terminates when goal node is found
 
 ---
 
-### Algorithm (Very Simple Explanation)
+### **Algorithm (Steps)**
 
-1. Put start node in OPEN
-2. If OPEN is empty → failure
-3. Pick node with smallest `f(n)`
-4. If it is goal → success
-5. Expand node
-6. For each child:
+1. Place starting node in OPEN list
+2. If OPEN list is empty, return failure
+3. Select node with smallest `f(n)`
 
-   * Compute `f(n)`
-   * Add/update in OPEN
-7. Move expanded node to CLOSED
-8. Repeat
+   * If it is goal, return success
+4. Expand node and generate successors
+5. For each successor:
+
+   * Compute evaluation function
+   * Add or update OPEN list
+6. Move expanded node to CLOSED
+7. Repeat from Step 2
 
 ---
 
-### Example (A*)
+### **Example (A* Search)**
 
-Using `f(n) = g(n) + h(n)`:
+Using `f(n) = g(n) + h(n)`
 
 Final optimal path:
 
@@ -239,16 +251,20 @@ Final optimal path:
 S → A → C → G
 ```
 
-**Total cost = 6**
+Cost:
+
+```
+6
+```
 
 ---
 
-### Important Points
+### **Points to Remember**
 
-* Returns the first optimal path found
-* Does not explore all paths
-* Performance depends heavily on heuristic quality
-* Expands nodes where:
+* Returns first occurring path
+* Does not search remaining paths
+* Efficiency depends on heuristic quality
+* Expands nodes satisfying:
 
 ```
 f(n) ≤ f(goal)
@@ -256,69 +272,53 @@ f(n) ≤ f(goal)
 
 ---
 
-### Completeness
+### **Completeness**
 
-A* is **complete** if:
+A* is complete if:
 
 * Branching factor is finite
-* Step cost is positive and fixed
+* Cost of every action is fixed
 
 ---
 
-### Optimality Conditions
+### **Optimality Conditions**
 
 A* is optimal if:
 
-1. **Admissible heuristic** (never overestimates)
-2. **Consistent heuristic** (for graph search)
+1. Heuristic is **admissible**
+2. Heuristic is **consistent** (for graph search)
 
 ---
 
-### Advantages
+### **Advantages**
 
-* Complete
 * Optimal
-* Efficient for complex problems
-* Widely used in AI
+* Complete
+* Solves complex problems
 
 ---
 
-### Disadvantages
+### **Disadvantages**
 
-* High memory usage
+* High memory requirement
 * Stores all generated nodes
-* Not practical for very large state spaces
-* Performance drops with poor heuristic
+* Not practical for very large problems
 
 ---
 
-### Complexity
+### **Complexity**
 
 * **Time Complexity:** `O(b^d)`
 * **Space Complexity:** `O(b^d)`
-* `d` = depth of optimal solution
+* `d` = depth of solution
 
 ---
 
-## 1.8 Comparison Summary
-
-| Feature        | Greedy Best-First | A* Search |
-| -------------- | ----------------- | --------- |
-| Uses heuristic | Yes               | Yes       |
-| Uses path cost | No                | Yes       |
-| Complete       | No                | Yes       |
-| Optimal        | No                | Yes       |
-| Memory usage   | Moderate          | High      |
-| Speed          | Fast              | Balanced  |
-
----
-
-## 1.9 Final Result
+## **Final Result**
 
 * Informed search uses heuristics to guide search
-* Greedy search is fast but unreliable
-* A* search is the **best informed search algorithm**
+* Greedy Best-First Search is fast but not optimal
+* A* Search is optimal and complete when conditions are met
 * Heuristic quality directly affects performance
-* Admissibility is key for optimality
 
 ---
