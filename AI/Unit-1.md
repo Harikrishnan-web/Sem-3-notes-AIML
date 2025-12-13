@@ -624,4 +624,257 @@ A problem is defined using five components:
 
 ---
 
+## **1. Search Algorithms**
+
+A **search algorithm** helps an agent find a **sequence of actions** from an initial state to a goal state.
+
+Search is mainly used by **problem-solving agents**.
+
+---
+
+## **2. Uninformed Search Strategies**
+
+### **2.1 What is Uninformed Search?**
+
+An **uninformed search strategy** does not have any extra information about how close a state is to the goal.
+
+It uses only:
+
+* Initial state
+* Actions
+* Goal test
+* Path cost (sometimes)
+
+👉 It searches blindly without knowing where the goal is.
+
+---
+
+## **3. Breadth-First Search (BFS)**
+
+### **Idea**
+
+Breadth-First Search explores the **shallowest nodes first**.
+
+It expands all nodes at one depth before moving to the next depth.
+
+---
+
+### **Algorithm (Simple Steps)**
+
+1. Put initial state into queue
+2. Remove first node from queue
+3. Check goal
+4. Expand node and add children to queue
+5. Repeat until goal is found
+
+---
+
+### **Data Structure Used**
+
+* **Queue (FIFO)**
+
+---
+
+### **Properties**
+
+* **Complete:** Yes
+* **Optimal:** Yes (if all step costs are equal)
+* **Time Complexity:** O(b^d)
+* **Space Complexity:** O(b^d)
+
+Where:
+
+* b = branching factor
+* d = depth of shallowest goal
+
+---
+
+### **Advantages**
+
+* Always finds shortest path
+
+### **Disadvantages**
+
+* High memory usage
+
+---
+
+## **4. Depth-First Search (DFS)**
+
+### **Idea**
+
+Depth-First Search explores the **deepest node first**.
+
+It goes down one path completely before backtracking.
+
+---
+
+### **Algorithm (Simple Steps)**
+
+1. Put initial state into stack
+2. Pop node from stack
+3. Check goal
+4. Expand node and push children
+5. Repeat
+
+---
+
+### **Data Structure Used**
+
+* **Stack (LIFO)**
+
+---
+
+### **Properties**
+
+* **Complete:** No (in infinite spaces)
+* **Optimal:** No
+* **Time Complexity:** O(b^m)
+* **Space Complexity:** O(bm)
+
+Where m = maximum depth
+
+---
+
+### **Advantages**
+
+* Low memory usage
+
+### **Disadvantages**
+
+* May get stuck in infinite path
+
+---
+
+## **5. Depth-Limited Search (DLS)**
+
+### **Idea**
+
+Depth-Limited Search is DFS with a **depth limit**.
+
+---
+
+### **Algorithm**
+
+* Perform DFS
+* Stop expanding nodes beyond depth limit L
+
+---
+
+### **Properties**
+
+* **Complete:** Yes (if L ≥ d)
+* **Optimal:** No
+* **Time Complexity:** O(b^L)
+* **Space Complexity:** O(bL)
+
+---
+
+### **Limitation**
+
+* Choosing correct depth limit is difficult
+
+---
+
+## **6. Iterative Deepening Depth-First Search (IDDFS)**
+
+### **Idea**
+
+IDDFS combines BFS and DFS.
+
+It performs DLS repeatedly with increasing depth limits.
+
+---
+
+### **Algorithm**
+
+1. Set depth = 0
+2. Perform DLS
+3. Increase depth
+4. Repeat until goal found
+
+---
+
+### **Properties**
+
+* **Complete:** Yes
+* **Optimal:** Yes (for equal step cost)
+* **Time Complexity:** O(b^d)
+* **Space Complexity:** O(bd)
+
+---
+
+### **Advantage**
+
+* Low memory and optimal
+
+---
+
+## **7. Uniform Cost Search (UCS)**
+
+### **Idea**
+
+Uniform Cost Search expands the node with the **lowest path cost**.
+
+---
+
+### **Algorithm**
+
+1. Insert initial state with cost 0
+2. Expand lowest-cost node
+3. Update costs
+4. Repeat until goal found
+
+---
+
+### **Data Structure Used**
+
+* **Priority Queue**
+
+---
+
+### **Properties**
+
+* **Complete:** Yes
+* **Optimal:** Yes
+* **Time Complexity:** O(b^(C*/ε))
+* **Space Complexity:** Same as time
+
+---
+
+## **8. Bidirectional Search**
+
+### **Idea**
+
+Bidirectional search searches:
+
+* Forward from start
+* Backward from goal
+
+Search stops when two searches meet.
+
+---
+
+### **Properties**
+
+* **Complete:** Yes
+* **Optimal:** Yes (with BFS)
+* **Time Complexity:** O(b^(d/2))
+* **Space Complexity:** O(b^(d/2))
+
+---
+
+## **9. Comparison of Uninformed Search Strategies**
+
+| Strategy      | Complete | Optimal | Time       | Space      |
+| ------------- | -------- | ------- | ---------- | ---------- |
+| BFS           | Yes      | Yes     | O(b^d)     | O(b^d)     |
+| DFS           | No       | No      | O(b^m)     | O(bm)      |
+| DLS           | Yes      | No      | O(b^L)     | O(bL)      |
+| IDDFS         | Yes      | Yes     | O(b^d)     | O(bd)      |
+| UCS           | Yes      | Yes     | High       | High       |
+| Bidirectional | Yes      | Yes     | O(b^(d/2)) | O(b^(d/2)) |
+
+---
+
 
