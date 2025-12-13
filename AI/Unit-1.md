@@ -400,3 +400,228 @@ The environment:
 
 ---
 
+## **1. Rational Agent**
+
+### **1.1 What is a Rational Agent?**
+
+A **rational agent** is an agent that always chooses the action that gives the **best expected result** according to a given performance measure.
+
+**Key idea (simple):**
+A rational agent always tries to **do the best possible thing** using what it knows.
+
+---
+
+### **1.2 Rational Action**
+
+An action is called **rational** when it:
+
+* Maximizes the performance measure
+* Uses the complete percept sequence
+* Uses prior knowledge of the environment
+* Chooses the best available action
+
+👉 Rational does **not** mean perfect. The agent may have limited knowledge.
+
+---
+
+### **1.3 Factors that Decide Rationality**
+
+Rationality depends on four things:
+
+1. **Performance Measure** – Defines success
+2. **Percept Sequence** – All perceptions received so far
+3. **Prior Knowledge** – What the agent already knows
+4. **Available Actions** – Actions the agent can perform
+
+---
+
+### **1.4 Performance Measure**
+
+A **performance measure** evaluates how well an agent is doing.
+
+**Example (Vacuum Cleaner Agent):**
+
+* Clean floor
+* Less energy usage
+* Less time
+
+---
+
+### **1.5 PEAS Representation (VERY IMPORTANT)**
+
+PEAS describes the **task environment** of an agent.
+
+**PEAS = Performance measure, Environment, Actuators, Sensors**
+
+#### **Example 1: Vacuum Cleaner Agent**
+
+* **P:** Cleanliness, time, energy
+* **E:** Rooms, dirt
+* **A:** Move left, move right, suck
+* **S:** Dirt sensor, location sensor
+
+#### **Example 2: Self-Driving Taxi**
+
+* **P:** Safety, speed, comfort, legality
+* **E:** Roads, traffic, pedestrians
+* **A:** Steering, brakes, accelerator
+* **S:** Cameras, GPS, radar
+
+---
+
+## **2. Nature of Environments**
+
+Environments are classified based on properties from the agent’s point of view.
+
+---
+
+### **2.1 Fully Observable vs Partially Observable**
+
+* **Fully Observable:** Agent senses the complete environment
+* **Partially Observable:** Agent senses incomplete information
+
+**Examples:**
+
+* Chess → Fully observable
+* Driving → Partially observable
+
+---
+
+### **2.2 Deterministic vs Stochastic**
+
+* **Deterministic:** Action gives one fixed result
+* **Stochastic:** Action outcome is uncertain
+
+---
+
+### **2.3 Episodic vs Sequential**
+
+* **Episodic:** Each action is independent
+* **Sequential:** Current action affects future actions
+
+---
+
+### **2.4 Static vs Dynamic**
+
+* **Static:** Environment does not change while thinking
+* **Dynamic:** Environment changes continuously
+
+---
+
+### **2.5 Discrete vs Continuous**
+
+* **Discrete:** Finite states and actions
+* **Continuous:** Infinite states or actions
+
+---
+
+### **2.6 Single-Agent vs Multi-Agent**
+
+* **Single-Agent:** Only one agent exists
+* **Multi-Agent:** Multiple agents interact
+
+---
+
+### **2.7 Known vs Unknown**
+
+* **Known:** Agent knows how actions affect environment
+* **Unknown:** Agent must learn environment behavior
+
+---
+
+## **3. Structure of Agents**
+
+### **3.1 Agent Structure**
+
+> **Agent = Architecture + Agent Program**
+
+---
+
+### **3.2 Architecture**
+
+Architecture is the **hardware or software platform** on which the agent runs.
+
+**Examples:**
+
+* Robot body
+* Computer system
+
+---
+
+### **3.3 Agent Program**
+
+The agent program implements the agent function and decides actions.
+
+---
+
+### **3.4 Agent Function**
+
+The agent function maps percept sequences to actions.
+
+**Representation:**
+
+f : P* → A
+
+---
+
+## **4. Problem-Solving Agents**\
+<img src="Sources/8.png" alt="A screenshot" width="400" height="200">
+
+### **4.1 What is a Problem-Solving Agent?**
+
+A **problem-solving agent** is a **goal-based agent** that finds a sequence of actions to reach a goal.
+
+It uses **search techniques**.
+
+---
+
+### **4.2 Characteristics of Problem-Solving Agents**
+
+* Single-agent environment
+* Deterministic
+* Fully observable
+* Sequential
+
+---
+
+### **4.3 Problem Formulation**
+
+A problem is defined using five components:
+
+1. **Initial State** – Starting point
+2. **Actions** – Possible moves
+3. **Transition Model** – Result of actions
+4. **Goal Test** – Checks goal state
+5. **Path Cost** – Cost of action sequence
+
+---
+
+### **4.4 Steps in Problem Solving**
+
+1. Formulate goal
+2. Formulate problem
+3. Search for solution
+4. Execute solution
+
+---
+
+### **4.5 Examples of Problem-Solving Tasks**
+
+* 8-Puzzle problem
+* Water Jug problem
+* Tower of Hanoi
+* Travelling Salesman Problem
+* Chess
+
+---
+
+### **4.6 Measuring Search Performance**
+
+* **Completeness** – Finds solution if one exists
+* **Optimality** – Finds best solution
+* **Time Complexity** – Time required
+* **Space Complexity** – Memory required
+
+---
+
+
