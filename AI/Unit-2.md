@@ -322,3 +322,389 @@ A* is optimal if:
 * Heuristic quality directly affects performance
 
 ---
+
+# **2. Local Search and Optimization Problems**
+
+---
+
+## **2.1 Hill-Climbing Search**
+<img src="Sources/Hill.png" alt="A screenshot" width="400" height="200">
+### **What is Hill-Climbing Search**
+
+* Hill-climbing search is a **local search algorithm**
+* It keeps track of **only one current state**
+* At each step:
+
+  * It moves to the **neighboring state with the highest value**
+* The search **stops** when:
+
+  * No neighbor is better than the current state
+
+---
+
+### **Basic Idea (Child-Level Explanation)**
+
+* Imagine standing on a hill in fog
+* You can only see nearby steps
+* You always step **upward**
+* If you cannot go higher, you stop
+
+---
+
+### **Important Characteristics**
+
+* Looks only at **immediate neighbors**
+* Does **not look ahead**
+* Uses very little memory
+* Similar to greedy local search
+
+---
+
+### **Hill-Climbing and 8-Queens Problem**
+
+#### **Problem**
+
+* Place 8 queens on a chessboard
+* No two queens should attack each other
+* A queen attacks if it is:
+
+  * In the same row
+  * Same column
+  * Same diagonal
+
+---
+
+#### **State Representation**
+
+* Complete-state formulation
+* Every state has 8 queens
+* One queen per column
+
+---
+
+#### **Initial State**
+
+* Chosen randomly
+
+---
+
+#### **Successor States**
+
+* Move one queen within its column
+* Total successors:
+
+```
+8 × 7 = 56
+```
+
+---
+
+#### **Heuristic Function**
+
+* Counts number of attacking queen pairs
+* Goal state has:
+
+```
+h = 0
+```
+
+---
+
+### **Why Hill-Climbing Fails**
+
+#### **1. Local Maxima**
+
+* A state that is better than neighbors
+* But not the best overall
+* Algorithm gets stuck
+
+---
+
+#### **2. Ridges**
+<img src="Sources/Ridges.png" alt="A screenshot" width="400" height="200">
+* A series of local maxima
+* All moves from each peak go downhill
+* Hard for greedy algorithms
+
+---
+
+#### **3. Plateaus**
+
+* Flat areas in state space
+* No clear direction to move
+* Algorithm may wander endlessly
+
+---
+
+### **Performance on 8-Queens**
+
+* Solves only **14%** of cases
+* Gets stuck **86%** of the time
+* Average steps:
+
+  * Success: 4
+  * Failure: 3
+* State space size:
+
+```
+8^8 ≈ 17 million
+```
+
+---
+
+### **Sideways Moves**
+
+* Move with same heuristic value
+* Helps escape plateaus
+* Must be limited to avoid infinite loops
+* Limiting sideways moves increases success to **94%**
+
+---
+
+### **Variants of Hill-Climbing**
+
+* Stochastic hill climbing
+* First-choice hill climbing
+* Random-restart hill climbing
+
+---
+
+## **2.2 Simulated Annealing**
+<img src="Sources/Simu.png" alt="A screenshot" width="400" height="200">
+### **Why Simulated Annealing is Needed**
+
+* Hill-climbing never allows downhill moves
+* Random walk is very slow
+* Simulated annealing combines both
+
+---
+
+### **Idea from Metallurgy**
+
+* Heat metal → atoms move freely
+* Slowly cool → atoms settle in best position
+
+---
+
+### **Simple Explanation**
+
+* At the beginning:
+
+  * Many bad moves are allowed
+* Later:
+
+  * Fewer bad moves are allowed
+* This helps escape local maxima
+
+---
+
+### **How It Works**
+
+* Picks a **random move**
+* If move is better → always accept
+* If move is worse → accept with probability
+
+---
+
+### **Probability Depends On**
+
+* How bad the move is (ΔE)
+* Temperature (T)
+
+---
+
+### **Key Properties**
+
+* At high temperature:
+
+  * Bad moves are allowed
+* As temperature decreases:
+
+  * Bad moves become unlikely
+
+---
+
+### **Mathematical Idea**
+
+* Probability follows Boltzmann distribution:
+
+```
+e^(-ΔE / T)
+```
+
+---
+
+### **Guarantee**
+
+* If temperature decreases slowly enough:
+
+  * Algorithm reaches global maximum with high probability
+
+---
+
+### **Applications**
+
+* VLSI layout problems
+* Factory scheduling
+* Large-scale optimization tasks
+
+---
+
+## **2.3 Local Beam Search**
+
+### **Basic Idea**
+
+* Keeps track of **k states**, not one
+* Starts with **k random states**
+
+---
+
+### **Algorithm Steps**
+
+1. Generate k random initial states
+2. Generate all successors of all k states
+3. If any successor is goal → stop
+4. Select the **k best successors**
+5. Repeat
+
+---
+
+### **Why It Is Better Than Restart**
+
+* Searches in parallel
+* Shares information between states
+* Bad paths are abandoned quickly
+
+---
+
+### **Important Difference**
+
+* Random restart:
+
+  * Searches are independent
+* Local beam search:
+
+  * States guide each other
+
+---
+
+### **Limitation**
+
+* States may become too similar
+* Loss of diversity
+* Becomes slow hill climbing
+
+---
+
+## **2.3.1 Stochastic Beam Search**
+
+### **Purpose**
+
+* Fix lack of diversity in local beam search
+
+---
+
+### **How It Works**
+
+* Successors chosen probabilistically
+* Probability proportional to value
+* Encourages diversity
+
+---
+
+## **2.4 Evolutionary Algorithms**
+
+### **Basic Idea**
+
+* Inspired by natural selection
+* Works like biological evolution
+
+---
+
+### **Key Concepts**
+
+* Population of individuals (states)
+* Fittest individuals survive
+* New individuals are created
+
+---
+
+### **Genetic Algorithm Representation**
+
+* Each individual is a string
+* Example: digit strings for 8-queens
+* Each digit represents queen position
+
+---
+
+### **Main Components**
+
+#### **1. Population**
+
+* A group of candidate solutions
+
+---
+
+#### **2. Fitness Function**
+
+* Measures quality of solution
+* Higher fitness = better solution
+* For 8-queens:
+
+```
+Max fitness = 28
+```
+
+---
+
+#### **3. Selection**
+
+* Individuals selected based on fitness
+* Higher fitness → higher probability
+
+---
+
+#### **4. Recombination (Crossover)**
+
+* Two parents combine
+* A crossover point is chosen
+* Parts are exchanged
+
+---
+
+#### **5. Mutation**
+
+* Random change in offspring
+* Each bit may flip with small probability
+* Maintains diversity
+
+---
+
+#### **6. Elitism**
+<img src="Sources/Eti.png" alt="A screenshot" width="400" height="200">
+* Best parents carried to next generation
+* Ensures fitness never decreases
+
+---
+
+### **Why Genetic Algorithms Work**
+
+* Combine useful building blocks
+* Use crossover and mutation
+* Fitness improves over generations
+
+---
+
+### **Schema Concept**
+
+* A schema is a pattern in a string
+* Example:
+
+```
+246*****
+```
+
+* Instances of schema grow if fitness is high
+
+---
+
