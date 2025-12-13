@@ -681,7 +681,7 @@ Max fitness = 28
 ---
 
 #### **6. Elitism**
-<img src="Sources/Eti.png" alt="A screenshot" width="400" height="200">
+<img src="Sources/.png" alt="A screenshot" width="400" height="200">
 * Best parents carried to next generation
 * Ensures fitness never decreases
 
@@ -707,4 +707,8 @@ Max fitness = 28
 * Instances of schema grow if fitness is high
 
 ---
-
+Just watch there videos for these topics
+[Local Search in Continuous Spaces](https://www.youtube.com/watch?v=g0lF_p_Zlmw&t=952s)
+[Search with Nondeterministic Actions](https://www.youtube.com/watch?v=VUuPlQFSwwo)
+[Search in Partially Observable Environments](https://www.youtube.com/watch?v=Nw95_WLDTco)
+[Hill Climbing](https://www.youtube.com/watch?v=_ThdIOA9Lbk)
