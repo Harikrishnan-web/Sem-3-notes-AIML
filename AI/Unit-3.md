@@ -119,6 +119,7 @@ The order in which you check moves matters. If you check the best moves first, A
 If you are looking for your lost keys, do you search the whole house randomly? No! You check the "most likely" places first (pockets, table). If you find them there, you save hours of searching. Move ordering is just "checking the best spots first."
 
 ### 4.2 Heuristic Alpha-Beta Search
+<img src="Sources/hab.png" alt="A screenshot" width="400" height="200">
 **Technical Analysis**:
 We can't search to the very end of Chess. We stop early and guess.
 *   **H-MINIMAX**: Replaces `UTILITY(s)` with `EVAL(s)` when depth limit is reached.
@@ -127,70 +128,195 @@ We can't search to the very end of Chess. We stop early and guess.
 ***
 
 ## Topic 5: Evaluation Functions
+<img src="Sources/eval.png" alt="A screenshot" width="400" height="200">
 
-### 5.1 Weighted Linear Functions
-**Technical Analysis**:
-How do we guess who is winning? We use features $f_i$ (e.g., number of pawns) and weights $w_i$.
-$$ \text{EVAL}(s) = w_1 f_1(s) + w_2 f_2(s) + \dots + w_n f_n(s) $$
-*   Example (Chess): Pawn=1, Bishop=3, Rook=5, Queen=9.
-*   **Machine Learning**: Modern engines learn these weights from millions of games.
+## **Topic 1: Evaluation Functions (Heuristics)**
 
-**Child-Friendly Explanation**:
-How do you know who is winning a soccer game if the score is 0-0? You look at "clues": Who has the ball more? Who is shooting more? You give points for these clues to guess the winner.
+### **1.1 Technical Explanation**
+In complex games like Chess or Go, the game tree is too deep to reach a terminal state (Win/Loss) within a reasonable time. Therefore, the search must stop early at a non-terminal leaf node. We need a way to estimate the "utility" or "goodness" of that state.
+
+This is done using a **Heuristic Evaluation Function**, denoted as `EVAL(s)`.
+
+*   **Weighted Linear Function**: The most common mathematical form. The state $s$ is broken down into numerical features $f_i$, and each feature is assigned a weight $w_i$ based on its importance.
+    \[
+    \text{EVAL}(s) = w_1 f_1(s) + w_2 f_2(s) + \dots + w_n f_n(s)
+    \]
+*   **Features ($f_i$)**:
+    *   **Material**: The raw count of pieces (e.g., White has 2 Rooks, Black has 1).
+    *   **Mobility**: The number of legal moves available (more moves = better flexibility).
+    *   **King Safety**: Distance of enemy pieces from the King.
+    *   **Pawn Structure**: Penalties for doubled or isolated pawns.
+*   **Non-Linearity**: Advanced functions account for synergy. For example, a pair of Bishops is often worth more than $2 \times$ (1 Bishop) because they cover both color diagonals together.
+
+### **1.2 Child-Friendly Explanation: "The Fruit Basket Judge"**
+Imagine there is a contest for the best fruit basket. The judge is a computer, but it doesn't have time to taste every fruit. It just looks at a photo and gives a score.
+
+*   **The Features (What it counts)**:
+    1.  **Apples**: Worth 1 point each.
+    2.  **Bananas**: Worth 3 points each (because they are tastier).
+    3.  **Rotten Spots**: Worth -10 points (very bad!).
+
+*   **The Scoring**:
+    *   **Basket A**: Has 5 Apples and 1 Banana.
+        *   Score = $(5 \times 1) + (1 \times 3) = 8$.
+    *   **Basket B**: Has 20 Apples but 1 Rotten Spot.
+        *   Score = $(20 \times 1) + (1 \times -10) = 10$.
+    *   **Result**: The computer picks Basket B because 10 is higher than 8.
+*   **The Lesson**: The computer doesn't *know* if the fruit is actually good; it just does the math. If the math (weights) is wrong, the computer makes bad choices.
+
+### **1.3 Code Example: Simple Chess Evaluation**
+
+```python
+def evaluate_board(board):
+    # 1. Define Weights (Importance of each piece)
+    piece_values = {
+        'Pawn': 1,
+        'Knight': 3,
+        'Bishop': 3,
+        'Rook': 5,
+        'Queen': 9,
+        'King': 200
+    }
+    
+    score = 0
+    
+    # 2. Loop through all pieces on the board
+    for piece in board.pieces:
+        value = piece_values[piece.type]
+        
+        # 3. Add to score if it's OUR piece, subtract if ENEMY
+        if piece.color == 'White': # Assuming we are White
+            score += value
+        else:
+            score -= value
+            
+    # 4. Add Positional Bonus (Example: Control of center squares)
+    score += count_center_control(board, 'White') * 0.5
+    
+    return score
+```
 
 ***
 
-## Topic 6: Cutting Off Search (Common Problems)
+## **Topic 2: Cutting Off Search (Common Problems)**
 
-### 6.1 Quiescence Search
-**Technical Analysis**:
-Don't stop the search in the middle of a "wild" exchange (e.g., in the middle of a capture sequence). The evaluation will be wrong.
-*   **Solution**: Continue searching only "noisy" moves (captures) until the board is "quiet" (quiescent).
+### **2.1 Sub-Topic: Quiescence Search**
 
-### 6.2 The Horizon Effect
-**Technical Analysis**:
-The program sees a bad event (loss of a Queen) coming at depth 6. It makes a silly move (sacrificing a pawn) to push the Queen loss to depth 8 (beyond its "horizon"). It thinks it saved the Queen, but it just delayed the inevitable and lost a pawn too.
-*   **Solution**: **Singular Extensions**. If one move is clearly better, search it deeper than others.
+#### **Technical Explanation**
+Standard Minimax stops searching exactly when it hits the **Depth Limit** (e.g., depth 4).
+*   **The Problem**: What if depth 4 occurs in the middle of a "wild" exchange?
+    *   *Example*: I capture your Queen (Depth 3). You are *about* to capture my Queen back (Depth 4), but the search stops before you do it.
+    *   The `EVAL` function sees I am up +9 points (I have your Queen, you haven't taken mine yet). It thinks I am winning easily. This is a **Noisy State**.
+*   **The Solution**: **Quiescence Search**.
+    *   When the depth limit is reached, check: "Is the board quiet?" (Are there any captures or checks possible?).
+    *   If **No** (It's noisy): Continue searching **only** the capture moves until the board settles down.
 
-**Child-Friendly Explanation**:
-Imagine you have to clean your room by 5 PM. You throw a tantrum to delay it. You think "Yay, I don't have to clean right now!" but actually, you just have to clean later *and* you're in trouble for the tantrum. You just pushed the problem "over the horizon."
+#### **Child-Friendly Explanation: "The Jumping Photo"**
+You want to measure how tall your friend is.
+*   **Bad Cutoff**: You take the photo while your friend is jumping on a trampoline, high in the air.
+    *   *Result*: The photo says he is 10 feet tall! This is wrong because he is "unstable."
+*   **Quiescence**: You wait. You keep watching until he stops jumping and stands flat on the floor (Quiet State).
+    *   *Result*: Now you measure him. He is 5 feet tall. Much more accurate.
+
+#### **Algorithm Logic**
+```python
+def quiescence_search(state, alpha, beta):
+    # 1. Stand Pat: What is the score if we stop right now?
+    stand_pat = evaluate(state)
+    
+    # 2. Pruning: If standing pat is already too good, return it
+    if stand_pat >= beta:
+        return beta
+    if stand_pat > alpha:
+        alpha = stand_pat
+        
+    # 3. Only look at "Noisy" moves (Captures)
+    for move in get_capture_moves(state):
+        score = -quiescence_search(make_move(state, move), -beta, -alpha)
+        
+        if score >= beta:
+            return beta
+        if score > alpha:
+            alpha = score
+            
+    return alpha
+```
+
+### **2.2 Sub-Topic: The Horizon Effect**
+
+#### **Technical Explanation**
+This error occurs when an unavoidable "bad event" (like losing a Rook) is going to happen at **Depth 6**. The computer is only looking to **Depth 5**.
+*   The computer notices that if it sacrifices a Pawn now (Depth 3), the game changes slightly, and the Rook capture is delayed until **Depth 8**.
+*   Since Depth 8 is beyond the "Horizon" (Depth 5), the computer cannot see it.
+*   **The Mistake**: The computer thinks, "If I sacrifice the Pawn, the Rook is safe!"
+*   **The Reality**: It loses the Pawn *and* eventually loses the Rook anyway. It damaged its position just to delay the bad news.
+
+#### **Child-Friendly Explanation: "Hiding the Shoes"**
+*   **The Bad Event**: You have a dentist appointment at 4:00 PM. You hate the dentist.
+*   **The Horizon**: You can only plan your day until 5:00 PM.
+*   **The Mistake**: At 3:55 PM, you hide your shoes. It takes 30 minutes to find them.
+*   **Computer Logic**: "If I hide the shoes, 4:00 PM passes and I am still at home! I win! I beat the dentist!"
+*   **Reality**: You didn't beat the dentist. You just pushed the appointment to 4:30 PM (which you can't see yet), and now your mom is mad that you hid your shoes. You lose twice.
 
 ***
 
-## Topic 7: Forward Pruning (Risky Search)
+## **Topic 3: Forward Pruning (Risky Search)**
 
-### 7.1 Beam Search & PROBCUT
-**Technical Analysis**:
-Standard Alpha-Beta is "safe" (it never misses the best move). **Forward Pruning** is "risky" (it ignores moves that *look* bad but might be good).
-*   **Beam Search**: Only keep the top $n$ best moves at each level.
-*   **PROBCUT (Probabilistic Cut)**: Uses statistics to prune branches that are *probably* (but not surely) worse than Alpha/Beta.
-*   **Late Move Reduction**: If move ordering is good, moves late in the list are probably bad. Search them with less depth to save time.
+### **3.1 Technical Explanation**
+Standard Alpha-Beta pruning is **safe**; it only ignores moves that are provably worse. **Forward Pruning** is **aggressive**; it ignores moves that *seem* bad to save time, even though they *might* be good.
 
-**Child-Friendly Explanation**:
-Instead of reading every book in the library to find a fact, you only read the books with "Science" in the title. You *might* miss a fact hidden in a "History" book, but you save a lot of time.
+1.  **Beam Search**: instead of generating all child nodes, only generate the top $n$ most promising children according to the `EVAL` function.
+2.  **PROBCUT (Probabilistic Cut)**: Uses statistics to predict if a move will cause a pruning cutoff. If the probability is high (e.g., 95%), it prunes immediately without checking.
+3.  **Late Move Reduction (LMR)**: Assumes that your move ordering is good (best moves are first). It searches the first few moves at full depth, but searches the later moves (which are likely bad) at reduced depth (e.g., Depth - 2).
+
+*   **Risk**: You might prune a "Genius Move" that looks bad at first glance (like a Queen sacrifice) but actually leads to a win.
+
+### **3.2 Child-Friendly Explanation: "The Library Homework"**
+You have to find a fact about "Lions" in the library.
+
+*   **Safe Search (Alpha-Beta)**: You look at the index of every single book to make sure you don't miss anything. (Takes forever).
+*   **Forward Pruning**: You say, "I am ONLY going to look in the 'Animals' section. I will completely skip the 'Cooking' and 'Space' sections."
+    *   **Why?** Because Lions are usually in the Animals section. You finish your homework in 1 hour.
+    *   **The Risk**: What if there was a cool fact about a "Lion-shaped Cake" hidden in the Cooking section? You missed it because you "pruned" that section without checking.
+
+### **3.3 Algorithm Logic: Beam Search**
+
+```python
+def beam_search(state, depth, beam_width):
+    if depth == 0:
+        return evaluate(state)
+    
+    # 1. Get ALL possible moves
+    all_moves = get_legal_moves(state)
+    
+    # 2. Score them roughly (Shallow guess)
+    scored_moves = []
+    for move in all_moves:
+        score = evaluate(make_move(state, move))
+        scored_moves.append((score, move))
+        
+    # 3. Sort best to worst
+    scored_moves.sort(reverse=True)
+    
+    # 4. PRUNING: Only keep the top 'beam_width' (e.g., top 3)
+    best_moves = scored_moves[:beam_width]
+    
+    # 5. Only search those top 3 deeply
+    best_val = -infinity
+    for score, move in best_moves:
+        val = beam_search(make_move(state, move), depth-1, beam_width)
+        best_val = max(best_val, val)
+        
+    return best_val
+```
 
 ***
 
-## Topic 8: Search vs. Lookup
+### **Summary Table**
 
-### 8.1 Opening Books & Endgame Databases
-**Technical Analysis**:
-*   **Opening Books**: For the first 10-15 moves, computers don't search. They look up the best moves from a database of human expert games.
-*   **Endgame Databases**: Computers have "solved" endgames with few pieces (e.g., 7 pieces). They know the perfect move for every single position by working backward from checkmate (Retrograde Analysis).
-
-**Child-Friendly Explanation**:
-*   **Opening**: Like memorizing the answers to a spelling test. You don't have to "think" about how to spell "Cat", you just know it.
-*   **Endgame**: Like a map. If there are only a few pieces left, the computer has a perfect map that shows exactly how to win from anywhere.
-
-***
-
-### Final Summary Table
-| Topic | Key Concept | Child-Friendly Analogy |
+| Concept | Technical Definition | Child-Friendly Analogy |
 | :--- | :--- | :--- |
-| **Game Theory** | Modeling conflict & decisions. | Tug-of-War (Zero-Sum). |
-| **Minimax** | Maximize gain, assuming opponent minimizes it. | Sharing a cake with a greedy brother. |
-| **Alpha-Beta** | Pruning useless branches. Exact same result as Minimax. | Stopping shopping once you find a "good enough" price. |
-| **Horizon Effect** | Delaying inevitable loss beyond search depth. | Throwing a tantrum to delay chores. |
-| **Quiescence** | Searching until the board is stable. | Waiting for the dust to settle before judging. |
-
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/68867823/c503cf35-48da-436b-88d7-58db65c6824a/3.pdf)
+| **Evaluation Function** | $w_1 f_1 + w_2 f_2 \dots$ | Grading a fruit basket by counting apples. |
+| **Quiescence Search** | Extending search in "noisy" states to avoid errors. | Waiting for a jumper to land before measuring height. |
+| **Horizon Effect** | Stalling moves push bad events beyond search depth. | Hiding shoes to delay a dentist appointment. |
+| **Forward Pruning** | Skipping "unlikely" moves to gain speed (Risky). | Only checking the "Animal" section for Lion facts. |
