@@ -34,7 +34,7 @@
 | **Output/Result** | Alpha-beta pruning can drastically reduce the number of nodes examined; with perfect move ordering, the time complexity becomes $O(b^{m/2})$ instead of $O(b^m)$, allowing the algorithm to search roughly twice as deep. To make use of limited time, search is often cut off early, and a **heuristic evaluation function (EVAL)** is applied to nonterminal states to estimate utility (H-MINIMAX),. |,, |
 
 ### **4. Monte Carlo Tree Search (MCTS) (1.4)**
-
+[lINK](https://www.youtube.com/watch?v=2Hv4b0vC7YY)
 | Element | Content | Citation |
 | :--- | :--- | :--- |
 | **Topic Title with Number** | **4. Monte Carlo Tree Search (1.4)** | |
